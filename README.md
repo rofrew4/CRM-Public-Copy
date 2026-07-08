@@ -24,8 +24,9 @@ npm install
 
 1. Go to [supabase.com/dashboard](https://supabase.com/dashboard) → **New project**.
 2. Open **SQL Editor** → **New query**.
-3. Paste and run the entire contents of [`supabase/demo_bootstrap.sql`](supabase/demo_bootstrap.sql).
-4. In **Project Settings → API**, copy the project URL and `anon` public key.
+3. Run [`supabase/fresh_project_schema.sql`](supabase/fresh_project_schema.sql) (structure only).
+4. Run [`supabase/seed_demo.sql`](supabase/seed_demo.sql) (fictional sample data), **or** from this folder run `npm run seed` (more reliable).
+5. In **Project Settings → API**, copy the project URL and `anon` public key.
 
 ### 3. Configure environment
 
@@ -74,11 +75,20 @@ git push -u origin main          # first push to https://github.com/rofrew4/CRM-
 
 ## Sample data included
 
-`demo_bootstrap.sql` seeds fictional companies (Northwind Logistics, Brightpath Health, etc.), pipeline leads across stages, email inboxes, outreach templates, todos, and analytics-friendly history. All names, emails, and domains are made up for demo purposes.
+`seed_demo.sql` seeds a full fictional CRM dataset: 38 contacts, 18 pipeline leads (every stage + closed outcomes), 10 email inboxes, 10 outreach templates, 18 todos, 90 days of sending-volume history, 21 meeting-booked events for analytics charts, and outreach log history. All names, emails, and domains are made up. The script truncates seeded tables first so you can re-run it on a demo database.
 
-## Schema migrations
+**Kanban highlights** (overdue / due / snoozed / proposal-needed) are driven by real dates. They drift over time — before a demo, run `npm run seed:refresh-dates` to roll follow-up and analytics dates forward while keeping the same mix of card states. Full reset: `npm run seed`.
 
-Incremental migrations live in `supabase/migrations/` (used when evolving the production app). For a **fresh demo database**, running `demo_bootstrap.sql` alone is enough — it reflects the current schema in one script.
+## SQL files
+
+| File | Purpose |
+|------|---------|
+| `fresh_project_schema.sql` | Full schema for a **new empty** Supabase project |
+| `seed_demo.sql` | Fictional demo rows (run after schema) |
+| `demo_bootstrap.sql` | Schema + seed in one file (alternative) |
+| `migrations/` | Incremental history from production — do not run on a fresh project |
+
+**Do not** paste your old production migration SQL (ALTER/UPDATE backfills) onto a new project — use `fresh_project_schema.sql` instead.
 
 ## Environment variables
 
