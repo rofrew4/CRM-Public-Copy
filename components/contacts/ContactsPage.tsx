@@ -811,6 +811,7 @@ export function ContactsPage() {
                     <input
                       type="checkbox"
                       checked={selected.has(c.id)}
+                      onChange={() => {}}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRowCheckbox(c.id, rowIndex, e.shiftKey);
