@@ -132,7 +132,7 @@ export function PageStickyNote() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`What is the ${note.title} page for?`}
-        className="fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-yellow-300 bg-yellow-200 text-yellow-900 shadow-lg transition-transform hover:scale-105"
+        className="fixed bottom-4 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-yellow-300 bg-yellow-200 text-yellow-900 shadow-lg transition-transform hover:scale-105 sm:bottom-6 sm:right-6 sm:h-11 sm:w-11"
         style={{ animation: "sticky-note-pop 0.18s ease-out" }}
       >
         <StickyNote className="h-5 w-5" />
@@ -143,7 +143,7 @@ export function PageStickyNote() {
   return (
     <div
       key={pathname}
-      className="fixed bottom-6 right-6 z-50 w-72 select-none"
+      className="fixed bottom-4 right-4 z-40 w-[min(18rem,calc(100vw-2rem))] select-none sm:bottom-6 sm:right-6 sm:w-72"
       style={{ animation: "sticky-note-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both" }}
     >
       <div

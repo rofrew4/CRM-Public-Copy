@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/Sidebar";
+import { Sidebar, MAIN_OFFSET_CLASS } from "@/components/Sidebar";
 import { PageStickyNote } from "@/components/PageStickyNote";
 
 export default function CrmLayout({
@@ -9,7 +9,7 @@ export default function CrmLayout({
   return (
     <div className="min-h-screen bg-white">
       <Sidebar />
-      <main className="min-h-screen md:ml-60">{children}</main>
+      <main className={`min-h-screen ${MAIN_OFFSET_CLASS}`}>{children}</main>
       <PageStickyNote />
     </div>
   );

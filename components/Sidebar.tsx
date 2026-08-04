@@ -29,7 +29,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex-1 space-y-0.5 p-3">
+    <nav className="flex-1 space-y-0.5 overflow-y-auto p-3">
       {navItems.map(({ href, label, icon: Icon }) => {
         const active =
           pathname === href || pathname.startsWith(`${href}/`);
@@ -39,7 +39,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
             href={href}
             onClick={onNavigate}
             className={cn(
-              "flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
+              "flex items-center gap-2.5 rounded-md px-3 py-2.5 text-sm transition-colors",
               active
                 ? "bg-[#5c1a28] font-medium text-[#f6e8ea]"
                 : "text-[#d4a8b0] hover:bg-[#5c1a28]/60 hover:text-[#f6e8ea]"
@@ -59,6 +59,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Close drawer whenever the route changes
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -83,15 +84,27 @@ export function Sidebar() {
     };
   }, [mobileOpen]);
 
+  // If the viewport grows to desktop while the drawer is open, close it
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   return (
     <>
-      {/* Mobile top bar */}
-      <header className="sticky top-0 z-40 flex h-12 items-center gap-3 border-b border-[#7a2a3a] bg-[#3a0c16] px-4 md:hidden">
+      {/* Mobile / tablet top bar — sidebar hidden until hamburger is tapped */}
+      <header className="sticky top-0 z-40 flex h-12 items-center gap-3 border-b border-[#7a2a3a] bg-[#3a0c16] px-3 lg:hidden">
         <button
           type="button"
-          aria-label="Open menu"
+          aria-label="Open navigation"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-drawer"
           onClick={() => setMobileOpen(true)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#f6e8ea] hover:bg-[#5c1a28]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-[#f6e8ea] hover:bg-[#5c1a28] active:bg-[#5c1a28]"
         >
           <Menu className="h-5 w-5" />
         </button>
@@ -100,8 +113,8 @@ export function Sidebar() {
         </span>
       </header>
 
-      {/* Desktop sidebar */}
-      <aside className="crm-sidebar fixed left-0 top-0 z-40 hidden h-full w-60 flex-col border-r md:flex">
+      {/* Desktop sidebar — only from lg up */}
+      <aside className="crm-sidebar fixed left-0 top-0 z-40 hidden h-full w-60 flex-col border-r lg:flex">
         <div className="border-b border-[#7a2a3a] px-5 py-4">
           <h1 className="text-sm font-semibold tracking-tight text-[#f6e8ea]">
             CRM
@@ -111,34 +124,54 @@ export function Sidebar() {
         <NavLinks />
       </aside>
 
-      {/* Mobile drawer */}
-      {mobileOpen ? (
-        <div className="fixed inset-0 z-50 md:hidden">
-          <button
-            type="button"
-            aria-label="Close menu"
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setMobileOpen(false)}
-          />
-          <aside className="crm-sidebar absolute left-0 top-0 flex h-full w-60 flex-col border-r shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#7a2a3a] px-4 py-3">
-              <div>
-                <h1 className="text-sm font-semibold text-[#f6e8ea]">CRM</h1>
-                <p className="text-[11px] text-[#d4a8b0]">Demo workspace</p>
-              </div>
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={() => setMobileOpen(false)}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#f6e8ea] hover:bg-[#5c1a28]"
-              >
-                <X className="h-5 w-5" />
-              </button>
+      {/* Mobile drawer overlay + panel */}
+      <div
+        className={cn(
+          "fixed inset-0 z-50 lg:hidden",
+          mobileOpen ? "pointer-events-auto" : "pointer-events-none"
+        )}
+        aria-hidden={!mobileOpen}
+      >
+        <button
+          type="button"
+          aria-label="Close navigation"
+          tabIndex={mobileOpen ? 0 : -1}
+          className={cn(
+            "absolute inset-0 bg-black/55 transition-opacity duration-200",
+            mobileOpen ? "opacity-100" : "opacity-0"
+          )}
+          onClick={() => setMobileOpen(false)}
+        />
+        <aside
+          id="mobile-nav-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation"
+          className={cn(
+            "crm-sidebar absolute left-0 top-0 flex h-full w-[min(16rem,85vw)] flex-col border-r shadow-2xl transition-transform duration-200 ease-out",
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          )}
+        >
+          <div className="flex items-center justify-between border-b border-[#7a2a3a] px-4 py-3">
+            <div>
+              <h1 className="text-sm font-semibold text-[#f6e8ea]">CRM</h1>
+              <p className="text-[11px] text-[#d4a8b0]">Demo workspace</p>
             </div>
-            <NavLinks onNavigate={() => setMobileOpen(false)} />
-          </aside>
-        </div>
-      ) : null}
+            <button
+              type="button"
+              aria-label="Close navigation"
+              onClick={() => setMobileOpen(false)}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-[#f6e8ea] hover:bg-[#5c1a28]"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <NavLinks onNavigate={() => setMobileOpen(false)} />
+        </aside>
+      </div>
     </>
   );
 }
+
+/** Left margin for main content — matches desktop sidebar. */
+export const MAIN_OFFSET_CLASS = "lg:ml-60";
