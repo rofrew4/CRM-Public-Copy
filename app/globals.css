@@ -66,3 +66,93 @@ textarea {
     transform: scale(1);
   }
 }
+
+/* ============ Cold Email maroon theme ============ */
+.cold-email-theme {
+  --cold-bg: #3a0c16;
+  --cold-surface: #4a1420;
+  --cold-surface-2: #5c1a28;
+  --cold-border: #7a2a3a;
+  --cold-fg: #f6e8ea;
+  --cold-muted: #d4a8b0;
+  --cold-accent: #e8c4a8;
+
+  --background: var(--cold-bg);
+  --foreground: var(--cold-fg);
+  --surface: var(--cold-surface);
+  --surface-muted: var(--cold-surface-2);
+  --border: var(--cold-border);
+  --muted: var(--cold-muted);
+
+  min-height: 100%;
+  color: var(--cold-fg);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(122, 42, 58, 0.55), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(92, 26, 40, 0.45), transparent 50%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(74, 20, 32, 0.6), transparent 55%),
+    var(--cold-bg);
+}
+
+.cold-email-theme .bg-white {
+  background-color: var(--cold-surface) !important;
+}
+.cold-email-theme .bg-gray-50,
+.cold-email-theme .bg-gray-100,
+.cold-email-theme .hover\:bg-gray-50:hover,
+.cold-email-theme .hover\:bg-gray-100:hover {
+  background-color: var(--cold-surface-2) !important;
+}
+.cold-email-theme .text-gray-900,
+.cold-email-theme .text-gray-800,
+.cold-email-theme .text-gray-700 {
+  color: var(--cold-fg) !important;
+}
+.cold-email-theme .text-gray-600,
+.cold-email-theme .text-gray-500,
+.cold-email-theme .text-gray-400 {
+  color: var(--cold-muted) !important;
+}
+.cold-email-theme .border-gray-100,
+.cold-email-theme .border-gray-200,
+.cold-email-theme .border-gray-300 {
+  border-color: var(--cold-border) !important;
+}
+.cold-email-theme .bg-gray-900 {
+  background-color: var(--cold-accent) !important;
+  color: #3a0c16 !important;
+}
+.cold-email-theme .hover\:bg-gray-800:hover {
+  background-color: #f0d4bc !important;
+}
+
+.cold-light-panel {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: #e5e7eb !important;
+}
+.cold-light-panel .text-gray-900,
+.cold-light-panel .text-gray-800,
+.cold-light-panel .text-gray-700 {
+  color: #111827 !important;
+}
+.cold-light-panel .text-gray-600,
+.cold-light-panel .text-gray-500,
+.cold-light-panel .text-gray-400 {
+  color: #6b7280 !important;
+}
+.cold-light-panel .border-gray-100,
+.cold-light-panel .border-gray-200,
+.cold-light-panel .bg-white {
+  border-color: #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+.cold-light-panel .bg-gray-50,
+.cold-light-panel .bg-gray-100 {
+  background-color: #f9fafb !important;
+}
+
+.crm-sidebar {
+  background: linear-gradient(180deg, #4a1420 0%, #3a0c16 55%, #2a0810 100%);
+  border-color: #7a2a3a;
+  color: #f6e8ea;
+}

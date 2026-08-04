@@ -1,5 +1,5 @@
-import { EmailsPage } from "@/components/emails/EmailsPage";
+import { redirect } from "next/navigation";
 
-export default function EmailsRoute() {
-  return <EmailsPage />;
+export default function EmailsRedirect() {
+  redirect("/cold-email");
 }

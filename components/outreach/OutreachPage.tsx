@@ -332,7 +332,7 @@ export function OutreachPage() {
   return (
     <div>
       <PageHeader
-        title="Outreach"
+        title="Saved Replies"
         description="Select contacts and send with templates"
       />
 

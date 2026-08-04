@@ -12,7 +12,7 @@ type NoteContent = {
 };
 
 /** Bump when copy changes so previously-dismissed notes show again. */
-const NOTE_VERSION = "1";
+const NOTE_VERSION = "3";
 
 const PAGE_NOTES: { match: (path: string) => boolean; note: NoteContent }[] = [
   {
@@ -40,21 +40,21 @@ const PAGE_NOTES: { match: (path: string) => boolean; note: NoteContent }[] = [
     },
   },
   {
-    match: (p) => p.startsWith("/emails"),
+    match: (p) => p.startsWith("/cold-email") || p.startsWith("/emails"),
     note: {
-      title: "Emails",
-      body: "Track the inboxes you send from and keep them healthy.",
+      title: "Cold Email",
+      body: "Your outbound console — campaigns, replies, lists, and sending accounts in one place.",
       points: [
-        "Warmup status and daily sending volume",
-        "MailReach deliverability scores",
-        "Provider, cost, and inbox usage",
+        "Inbox: replies from cold sequences",
+        "Campaigns: steps, enrollments, and reply rates",
+        "Accounts + warmup: manage inboxes and daily volume",
       ],
     },
   },
   {
     match: (p) => p.startsWith("/outreach"),
     note: {
-      title: "Outreach",
+      title: "Saved Replies",
       body: "Send templated emails to a batch of contacts, one at a time.",
       points: [
         "Pick a template — it fills in name and company",

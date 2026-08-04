@@ -1,6 +1,6 @@
 # CRM Demo (Public Copy)
 
-A sales CRM demo with contacts, lead pipeline, outreach templates, email inbox tracking, analytics, and to-dos. This repo is meant for **public demos only** — it should connect to its **own** Supabase project with **fictional sample data**, not your production CRM.
+A sales CRM demo with contacts, lead pipeline, **Cold Email** (campaigns / reply inbox / lists / accounts — fake data only), outreach templates, analytics, and to-dos. This repo is meant for **public demos only** — it should connect to its **own** Supabase project with **fictional sample data**, not your production CRM.
 
 ## Keep your original CRM safe
 

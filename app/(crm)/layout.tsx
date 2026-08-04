@@ -9,7 +9,7 @@ export default function CrmLayout({
   return (
     <div className="min-h-screen bg-white">
       <Sidebar />
-      <main className="ml-60 min-h-screen">{children}</main>
+      <main className="min-h-screen md:ml-60">{children}</main>
       <PageStickyNote />
     </div>
   );
